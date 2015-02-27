@@ -10,50 +10,74 @@ SwiftMemCache is completely unit tested, to prove that everything works as expec
 ### Add/Change Entry
 Adds or changes a specified entry in the mem cache. Default TTL: 86400
 
-```CTMemCache.sharedInstance.set("foo", data:<YourObject>, namespace:"bar", ttl:3600)```
+```swift 
+CTMemCache.sharedInstance.set("foo", data:<YourObject>, namespace:"bar", ttl:3600)
+```
 
-```CTMemCache.sharedInstance.set("foo", data:<YourObject>)```
+```swift
+CTMemCache.sharedInstance.set("foo", data:<YourObject>)
+```
 
 ### Get
 Return an entry if exists, otherwise returns ```nil```
 
-```CTMemCache.sharedInstance.get("foo", namespace:"bar")```
-```CTMemCache.sharedInstance.get("foo")```
+```swift
+CTMemCache.sharedInstance.get("foo", namespace:"bar")
+```
+```swift
+CTMemCache.sharedInstance.get("foo")
+```
 
 ### Delete
 Deletes an entry by its key (namespace)
 
-```CTMemCache.sharedInstance.delete("foo", namespace:"bar")```
+```swift
+CTMemCache.sharedInstance.delete("foo", namespace:"bar")
+```
+```swift
+CTMemCache.sharedInstance.delete("foo")
+```
 
 ### Exists
 Returns true if an entry with the given key (optional namespace) exists
 
-```CTMemCache.sharedInstance.exists("foo", namespace:"bar")```
+```swift
+CTMemCache.sharedInstance.exists("foo", namespace:"bar")
+```
 
 
 ### Size
 Returns the amount of the entries in the mem cache
-```CTMemCache.sharedInstance.size()```
+```swift 
+CTMemCache.sharedInstance.size()
 ```
 
 ### Clean Namespace
 Deletes all entries of the given namespace from the mem cache
 
-```CTMemCache.sharedInstance.cleanNamespace("foo")```
+```swift
+CTMemCache.sharedInstance.cleanNamespace("foo")
+```
 
 ### Expired
 Checks if an given entry is expired. Returns true/false
 
-```CTMemCache.sharedInstance.isExpired("foo", namespace:"bar")```
+```swift
+CTMemCache.sharedInstance.isExpired("foo", namespace:"bar")
+```
 
 ### Delete Outdated Entries (TTL expired)
 Cleans all entries in the mem cache where the TTL is expire
 
-```CTMemCache.sharedInstance.deleteOutdated()```
+```swift
+CTMemCache.sharedInstance.deleteOutdated()
+```
 
 ### Reset
 This wipes all the data from the mem cache:
-```CTMemCache.sharedInstance.reset()```
+```swift
+CTMemCache.sharedInstance.reset()
+```
 
 ## Requests
 For feature requests or bugs open an issue or provide a unit tested Pull Request :-)
