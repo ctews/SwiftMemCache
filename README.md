@@ -8,7 +8,7 @@ SwiftMemCache is completely unit tested, to prove that everything works as expec
 ## Features
 
 ### Add/Change Entry
-Adds or changes a specified entry in the mem cache. Default TTL: 86400
+Adds or changes a specified entry in the mem cache. Default TTL: -1 (object will always live in memory)
 
 ```swift 
 CTMemCache.sharedInstance.set("foo", data:<YourObject>, namespace:"bar", ttl:3600)
