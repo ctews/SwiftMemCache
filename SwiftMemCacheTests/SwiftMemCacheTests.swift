@@ -53,10 +53,13 @@ class SwiftMemCacheTests: XCTestCase {
     func testIsExpired() {
         var memCache = CTMemCache.sharedInstance
         memCache.set("tmp", data: "blubb", ttl: 0)
-        XCTAssertTrue(memCache.isExpired("tmp"), "isExpired() test passed")
+        XCTAssertTrue(memCache.isExpired("tmp"), "isExpired() with expired ttl test passed")
         
         memCache.set("tmp", data: "blubb", ttl: 10000)
-        XCTAssertFalse(memCache.isExpired("tmp"), "isExpired() test passed")
+        XCTAssertFalse(memCache.isExpired("tmp"), "isExpired() with valid ttl test passed")
+        
+        memCache.set("tmp", data: "blubb")
+        XCTAssertFalse(memCache.isExpired("tmp"), "isExpired() with default ttl test passed")
     }
     
     func testSetAndGet() {
