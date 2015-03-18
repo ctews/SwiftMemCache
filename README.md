@@ -1,5 +1,5 @@
 #SwiftMemCache - A Swift Memory Cache
-This project contains a Swift class that acts as a _memory cache_ (singleton). It supports optionally **_namespacing_** for the cash identifier. It also supports a **_TTL_** to invalidate a cashed data object after a certain time.
+This project contains a Swift class that acts as a _memory cache_ (singleton). It supports optionally **_namespacing_** for the cache identifier. It also supports a **_TTL_** to invalidate a cashed data object after a certain time.
 
 The purpose of this class is to provide data across the whole code structure with an easy access pattern. You can extract interesting data into the mem cache and access it via a shared instance from anywhere in your code. SwiftMemCache DOES NOT write data to disk!
 
