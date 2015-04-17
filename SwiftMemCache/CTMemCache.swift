@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: MemCache Data Types
 
 struct CTMemCacheObjectData {
     var data: AnyObject?
@@ -17,25 +18,16 @@ struct CTMemCacheObjectData {
 typealias CTMemCacheObject = CTMemCacheObjectData
 
 
-
 class CTMemCache {
     
     static let sharedInstance = CTMemCache()
-    internal var cache: Dictionary<String, CTMemCacheObject>
+    private var cache: Dictionary<String, CTMemCacheObject>
     
     init() {
         self.cache = [String:CTMemCacheObject]()
     }
     
-    func buildNamespacedKey(key:String, namespace:String?) -> String {
-        var res: String = key
-        
-        if (namespace != nil) && (namespace != "") {
-            res = namespace!+"_"+key
-        }
-        
-        return res
-    }
+    // MARK: Setter + Getter
     
     func set(key: String, data:AnyObject?, namespace:String?="", ttl:Double=86400) {
         var cacheId = self.buildNamespacedKey(key, namespace: namespace)
@@ -59,6 +51,8 @@ class CTMemCache {
         return res
     }
     
+    // MARK: MemCache State Info
+    
     func isExpired(key:String, namespace:String?="") -> Bool {
         var isExpired:Bool = true
         var cacheId = buildNamespacedKey(key, namespace: namespace)
@@ -68,15 +62,6 @@ class CTMemCache {
         }
         
         return isExpired;
-    }
-    
-    internal func ttlExpired(ttl:Double) -> Bool {
-        return CFAbsoluteTimeGetCurrent() > ttl
-    }
-    
-    func delete(key:String, namespace:String?="") {
-        var cacheId = buildNamespacedKey(key, namespace: namespace)
-        self.cache.removeValueForKey(cacheId)
     }
     
     func isEmpty() -> Bool {
@@ -90,6 +75,12 @@ class CTMemCache {
     
     func size() -> Int {
         return count(self.cache)
+    }
+    
+    // MARK: Clean Functions
+    func delete(key:String, namespace:String?="") {
+        var cacheId = buildNamespacedKey(key, namespace: namespace)
+        self.cache.removeValueForKey(cacheId)
     }
     
     func cleanNamespace(namespace: String) {
@@ -114,5 +105,22 @@ class CTMemCache {
     
     func reset() {
         self.cache.removeAll(keepCapacity: false)
+    }
+    
+    // MARK: Private Functions
+    
+    // Not declared private to be visible in unit tests
+    func buildNamespacedKey(key:String, namespace:String?) -> String {
+        var res: String = key
+        
+        if (namespace != nil) && (namespace != "") {
+            res = namespace!+"_"+key
+        }
+        
+        return res
+    }
+    
+    private func ttlExpired(ttl:Double) -> Bool {
+        return CFAbsoluteTimeGetCurrent() > ttl
     }
 }
