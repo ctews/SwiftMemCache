@@ -22,6 +22,7 @@ class CTMemCache {
     
     static let sharedInstance = CTMemCache()
     private var cache: Dictionary<String, CTMemCacheObject>
+    private let kDiskIdentifier = "CTMemCacheImage"
     
     init() {
         self.cache = [String:CTMemCacheObject]()
@@ -50,6 +51,25 @@ class CTMemCache {
         
         return res
     }
+    
+    // MARK: MemCache Disk Save
+    func saveToDisk() -> Bool {
+        var tmpDict: NSMutableDictionary
+        
+        for key in self.cache {
+            tmpDict.setObject(self.cache[key], forKey: key)
+        }
+        
+        var userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setObject(tmpDict, forKey: kDiskIdentifier)
+        return userDefaults.synchronize()
+    }
+    
+    /*func saveToDisk(namespace:String?) -> Bool {
+        
+        
+        return true
+    }*/
     
     // MARK: MemCache State Info
     
