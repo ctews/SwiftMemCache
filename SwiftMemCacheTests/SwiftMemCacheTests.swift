@@ -101,4 +101,18 @@ class SwiftMemCacheTests: XCTestCase {
         memCache.reset()
         XCTAssertEqual(memCache.size(), 0, "reset() test passed")
     }
+    
+    func testPersistence() {
+        var memCache = CTMemCache.sharedInstance
+        memCache.set("tmp0", data: "blubb", ttl:4711)
+        var writeState = memCache.saveToDisk()
+        XCTAssertTrue(writeState, "saveToDisk() test passed")
+        memCache.reset()
+        XCTAssertEqual(memCache.size(), 0)
+        var readState = memCache.restoreFromDisk()
+        XCTAssertTrue(readState, "restoreFromDisk() file operation test passed")
+        XCTAssertEqual(memCache.size(), 1)
+        XCTAssertEqual(memCache.get("tmp0")!.data as! String, "blubb", "restoreFromDisk() data test passed")
+        XCTAssertEqual(memCache.get("tmp0")!.ttl, 4711, "restoreFromDisk() ttl test passed")
+    }
 }

@@ -52,18 +52,40 @@ class CTMemCache {
         return res
     }
     
-    // MARK: MemCache Disk Save
+    // MARK: MemCache Disk Save/Read
     func saveToDisk() -> Bool {
-        var tmpDict: NSMutableDictionary
-        
-        for key in self.cache {
-            tmpDict.setObject(self.cache[key], forKey: key)
+        var tmpDict = [NSObject:AnyObject]()
+        for key in self.cache.keys {
+            var dataObject = [NSObject:AnyObject]()
+            dataObject["data"] = self.cache[key]!.data
+            dataObject["ttl"] = self.cache[key]!.ttl
+            tmpDict[key] = dataObject
         }
         
         var userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setObject(tmpDict, forKey: kDiskIdentifier)
-        return userDefaults.synchronize()
+        return (self.cache.count == tmpDict.count) && userDefaults.synchronize()
     }
+    
+   func restoreFromDisk() -> Bool {
+        var success = false
+        var userDefaults = NSUserDefaults.standardUserDefaults()
+        self.reset()
+
+        if let nsDict = userDefaults.dictionaryForKey(kDiskIdentifier) {
+            for key in nsDict.keys {
+                var dataObject: [NSObject:AnyObject] = nsDict[key] as! [NSObject:AnyObject]
+                self.cache[key as! String] = CTMemCacheObject(data: dataObject["data"], ttl: dataObject["ttl"] as! Double)
+            }
+            success = true
+        } else {
+            self.cache = [String:CTMemCacheObject]()
+        }
+        
+        return success
+    }
+    
+    
     
     /*func saveToDisk(namespace:String?) -> Bool {
         
