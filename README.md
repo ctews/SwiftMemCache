@@ -1,4 +1,10 @@
 #SwiftMemCache - A Swift Memory Cache
+
+## CI Build State
+[![Circle CI](https://circleci.com/gh/ctews/SwiftMemCache/tree/master.svg?style=svg&circle-token=c973433a386eebb170ee6ea94b2fac1527ed52d4)](https://circleci.com/gh/ctews/SwiftMemCache/tree/master)
+
+## Description
+
 This project contains a Swift class that acts as a _memory cache_ (singleton). It supports optionally **_namespacing_** for the cache identifier. It also supports a **_TTL_** to invalidate a cashed data object after a certain time.
 
 The purpose of this class is to provide data across the whole code structure with an easy access pattern. You can extract interesting data into the mem cache and access it via a shared instance from anywhere in your code. SwiftMemCache DOES NOT write data to disk!
