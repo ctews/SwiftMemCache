@@ -19,20 +19,20 @@ class SwiftMemCacheTests: XCTestCase {
     }
     
     func testKeyBuilder() {
-        var key = "mama"
-        var namespace = "yo"
-        var expectedResult = "yo_mama"
+        let key = "mama"
+        let namespace = "yo"
+        let expectedResult = "yo_mama"
         XCTAssertEqual(CTMemCache.sharedInstance.buildNamespacedKey(key, namespace: namespace), expectedResult, "buildNamespacedKey() passed")
     }
     
     func testIsEmpty() {
-        var memCache = CTMemCache.sharedInstance
-        var isEmpty = memCache.isEmpty()
+        let memCache = CTMemCache.sharedInstance
+        let isEmpty = memCache.isEmpty()
         XCTAssertTrue(isEmpty, "isEmpty() test passed")
     }
     
     func testSize() {
-        var memCache = CTMemCache.sharedInstance
+        let memCache = CTMemCache.sharedInstance
         XCTAssertEqual(memCache.size(), 0, "size() for empty mem cache passed")
         
         memCache.set("tmp", data: "StringObject")
@@ -40,13 +40,13 @@ class SwiftMemCacheTests: XCTestCase {
     }
     
     func testExists() {
-        var memCache = CTMemCache.sharedInstance
+        let memCache = CTMemCache.sharedInstance
         memCache.set("tmp", data: "StringObject")
         XCTAssertTrue(memCache.exists("tmp"), "exists() test passed")
     }
     
     func testIsExpired() {
-        var memCache = CTMemCache.sharedInstance
+        let memCache = CTMemCache.sharedInstance
         memCache.set("tmp", data: "blubb", ttl: 0)
         XCTAssertTrue(memCache.isExpired("tmp"), "isExpired() with expired ttl test passed")
         
@@ -58,7 +58,7 @@ class SwiftMemCacheTests: XCTestCase {
     }
     
     func testSetAndGet() {
-        var memCache = CTMemCache.sharedInstance
+        let memCache = CTMemCache.sharedInstance
         memCache.set("tmp", data: "blubb", namespace: "ns")
         
         XCTAssertTrue(memCache.exists("tmp", namespace: "ns"), "exists() test passed")
@@ -66,14 +66,14 @@ class SwiftMemCacheTests: XCTestCase {
     }
     
     func testDelete() {
-        var memCache = CTMemCache.sharedInstance
+        let memCache = CTMemCache.sharedInstance
         memCache.set("tmp", data: "blubb", namespace:"ns")
         memCache.delete("tmp", namespace:"ns")
         XCTAssertEqual(memCache.size(), 0, "delete() test passed")
     }
     
     func testCleanOutdated() {
-        var memCache = CTMemCache.sharedInstance
+        let memCache = CTMemCache.sharedInstance
         memCache.set("tmp0", data: "outdated", ttl:0)
         memCache.set("tmp1", data: "outdated", ttl:0)
         memCache.set("tmp2", data: "alive")
@@ -84,7 +84,7 @@ class SwiftMemCacheTests: XCTestCase {
     }
     
     func testCleanNamespace() {
-        var memCache = CTMemCache.sharedInstance
+        let memCache = CTMemCache.sharedInstance
         memCache.set("tmp0", data: "dead", namespace:"killme")
         memCache.set("tmp1", data: "dead", namespace:"killme")
         memCache.set("tmp2", data: "alive", namespace:"letmelive")
@@ -96,7 +96,7 @@ class SwiftMemCacheTests: XCTestCase {
     }
     
     func testReset() {
-        var memCache = CTMemCache.sharedInstance
+        let memCache = CTMemCache.sharedInstance
         memCache.set("tmp0", data: "blubb")
         memCache.reset()
         XCTAssertEqual(memCache.size(), 0, "reset() test passed")
