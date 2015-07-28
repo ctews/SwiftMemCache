@@ -30,8 +30,8 @@ class CTMemCache {
     // MARK: Setter + Getter
     
     func set(key: String, data:AnyObject?, namespace:String?="", ttl:Double=86400) {
-        var cacheId = self.buildNamespacedKey(key, namespace: namespace)
-        var calcedTtl = CFAbsoluteTimeGetCurrent() + ttl
+        let cacheId = self.buildNamespacedKey(key, namespace: namespace)
+        let calcedTtl = CFAbsoluteTimeGetCurrent() + ttl
         
         self.cache[cacheId] = CTMemCacheObject(data: data, ttl: calcedTtl)
     }
@@ -43,7 +43,7 @@ class CTMemCache {
            delete(key, namespace: namespace)
         }
         
-        var cacheId: String = self.buildNamespacedKey(key, namespace: namespace)
+        let cacheId: String = self.buildNamespacedKey(key, namespace: namespace)
         if exists(key, namespace: namespace) {
             res = self.cache[cacheId]
         }
@@ -55,7 +55,7 @@ class CTMemCache {
     
     func isExpired(key:String, namespace:String?="") -> Bool {
         var isExpired:Bool = true
-        var cacheId = buildNamespacedKey(key, namespace: namespace)
+        let cacheId = buildNamespacedKey(key, namespace: namespace)
         
         if (self.cache[cacheId] != nil) {
             isExpired = ttlExpired(self.cache[cacheId]!.ttl)
@@ -69,22 +69,22 @@ class CTMemCache {
     }
     
     func exists(key:String, namespace:String?="") -> Bool {
-        var cacheId = buildNamespacedKey(key, namespace: namespace)
+        let cacheId = buildNamespacedKey(key, namespace: namespace)
         return (cache[cacheId] != nil) && !isExpired(key, namespace: namespace)
     }
     
     func size() -> Int {
-        return count(self.cache)
+        return self.cache.count
     }
     
     // MARK: Clean Functions
     func delete(key:String, namespace:String?="") {
-        var cacheId = buildNamespacedKey(key, namespace: namespace)
+        let cacheId = buildNamespacedKey(key, namespace: namespace)
         self.cache.removeValueForKey(cacheId)
     }
     
     func cleanNamespace(namespace: String) {
-        var cacheIds = self.cache.keys
+        let cacheIds = self.cache.keys
         
         for key in cacheIds {
             if key.rangeOfString(namespace) != nil {
@@ -94,7 +94,7 @@ class CTMemCache {
     }
     
     func deleteOutdated() {
-        var cacheIds = self.cache.keys
+        let cacheIds = self.cache.keys
         
         for key in cacheIds {
             if ttlExpired(self.cache[key]!.ttl) {
