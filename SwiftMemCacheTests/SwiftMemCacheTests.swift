@@ -101,4 +101,21 @@ class SwiftMemCacheTests: XCTestCase {
         memCache.reset()
         XCTAssertEqual(memCache.size(), 0, "reset() test passed")
     }
+    
+    func testSaveAndRestore() {
+        let memCache = CTMemCache.sharedInstance
+        memCache.set("foo", data: "oof", ttl: 2000)
+        memCache.set("bar", data: "rab", ttl: 3000)
+        memCache.set("expired", data: "empty", ttl: 0)
+        
+        let writeSuccessfull = memCache.saveToDisk()
+        XCTAssertTrue(writeSuccessfull)
+        
+        let restoreSuccessfull = memCache.restoreFromDisk()
+        XCTAssertTrue(restoreSuccessfull)
+        
+        XCTAssertEqual(memCache.get("foo")!.data as! String, "oof")
+        XCTAssertEqual(memCache.get("bar")!.data as! String, "rab")
+        XCTAssertEqual(memCache.size(), 2)
+    }
 }

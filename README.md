@@ -13,6 +13,17 @@ SwiftMemCache is completely unit tested, to prove that everything works as expec
 
 ## Features
 
+### NEW: Persistence Feature
+Save the current cache to disk. Entries with an expired TTL will be deleted before the cache gets persisted.
+
+```swift
+CTMemCache.sharedInstance.saveToDisk()
+```
+
+```swift
+CTMemCache.sharedInstance.restoreFromDisk()
+```
+
 ### Add/Change Entry
 Adds or changes a specified entry in the mem cache. Default TTL: -1 (object will always live in memory)
 
