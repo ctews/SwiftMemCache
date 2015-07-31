@@ -13,7 +13,7 @@ SwiftMemCache is completely unit tested, to prove that everything works as expec
 
 ## Features
 
-### NEW: Persistence Feature - Works only for scalar values at the moment
+### NEW: Persistence Feature - Works only for elemental values at the moment
 Save the current cache to disk. Entries with an expired TTL will be deleted before the cache gets persisted.
 
 ```swift
