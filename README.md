@@ -1,4 +1,4 @@
-#SwiftMemCache - A Swift Memory Cache
+#SwiftMemCache - A Swift Memory Cache with TTL support
 
 ## CI Build State
 [![Circle CI](https://circleci.com/gh/ctews/SwiftMemCache/tree/master.svg?style=svg&circle-token=c973433a386eebb170ee6ea94b2fac1527ed52d4)](https://circleci.com/gh/ctews/SwiftMemCache/tree/master)
