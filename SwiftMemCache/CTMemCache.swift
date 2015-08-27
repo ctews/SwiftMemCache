@@ -72,7 +72,7 @@ class CTMemCache {
     
     func exists(key:String, namespace:String?="") -> Bool {
         let cacheId = buildNamespacedKey(key, namespace: namespace)
-        return (cache[cacheId] != nil) && !isExpired(key, namespace: namespace)
+        return !isExpired(key, namespace: namespace)
     }
     
     func size() -> Int {
